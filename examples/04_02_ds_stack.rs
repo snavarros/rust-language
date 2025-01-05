@@ -1,30 +1,42 @@
-use std::collections::HashMap;
+/// To implement a stack, we can use easily the methods 
+/// from the vector library of rust
+
+/// A stack use a LIFO methodology
+/// Last In is the First Out
+/// Like when stack dishes on the kitchen and you take the first upper one
+
+
+#[derive(Debug)]
+struct Stack<T>{
+    stack: Vec<T>,
+}
+
+impl<T> Stack<T> {
+    fn new() -> Self {
+        Stack { stack: Vec::new() }
+    }
+
+    fn pop(&mut self)-> Option<T>{
+        self.stack.pop()
+    }
+
+    fn push(&mut self, item: T) {
+        self.stack.push(item)
+    }
+
+}
 
 
 
 fn main() {
-    let mut graph = HashMap::new();
-    graph.insert('a', vec!('c','b'));
-    graph.insert('b', vec!('d'));
-    graph.insert('c', vec!('e'));
-    graph.insert('d', vec!('f'));
-    graph.insert('e', vec!());
-    graph.insert('f', vec!());
+    let mut stack:Stack<usize> = Stack::new();
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    stack.push(4);
 
-    println!("{:?}", graph);
-    depth_first_print(graph,'a');
+    stack.pop();
 
-    
+    println!("{:?}", stack)
+
 }
-
-fn depth_first_print(graph: HashMap<char,Vec<char>>, source:char){
-    let mut stack = vec!(source);
-    while !stack.is_empty() {
-        let current = stack.pop().unwrap();
-        println!("{:?} ",current);
-        for value in  graph.get(&current).unwrap(){
-            stack.push(*value);
-        };
-    }
-}
-
