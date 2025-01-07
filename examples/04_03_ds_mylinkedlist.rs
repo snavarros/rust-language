@@ -92,39 +92,7 @@ impl<T: PartialEq> LinkedList<T> {
         None
     }
 
-    fn delete(&mut self, value: T) {
-        // Handle when the list is empty
-        if self.head.is_none() {
-            return;
-        }
     
-        // Handle when the head node needs to be deleted
-        if let Some(ref mut head) = self.head {
-            if head.value == value {
-                self.head = head.next.take();
-                if self.head.is_none() {
-                    self.tail = None;
-                }
-                return;
-            }
-        }
-    
-        let mut current = self.head.as_deref_mut();
-    
-        // Handle when a non-head node needs to be deleted
-        while let Some(ref mut node) = current {
-            if let Some(ref mut next) = node.next {
-                if next.value == value {
-                    node.next = next.next.take();
-                    if node.next.is_none() {
-                        self.tail = Some(node);
-                    }
-                    return;
-                }
-            }
-            current = node.next.as_deref_mut();
-        }
-    }
 }
 
 
